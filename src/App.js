@@ -3,6 +3,7 @@ import './App.css';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Jumbotron from 'react-bootstrap/Jumbotron';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -10,7 +11,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      city: ''
+      city: '',
+      cityData: {}
     };
   }
   handleFormSubmit = async(event) => {
@@ -36,6 +38,10 @@ class App extends React.Component {
             Explore!
           </Button>
         </Form>
+        { this.state.cityData.lat ? <Jumbotron>
+          <h3>{this.state.cityData.display_name}</h3>
+          <h5>{this.state.cityData.lat}, {this.state.cityData.lon}</h5>
+        </Jumbotron> : ''}
       </>
     )
   }
