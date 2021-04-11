@@ -38,7 +38,7 @@ class App extends React.Component {
             Explore!
           </Button>
         </Form>
-        { this.state.cityData.lat ? <Jumbotron>
+        { this.state.cityData.lat !== undefined ? <Jumbotron>
           <h3>{this.state.cityData.display_name}</h3>
           <h5>{this.state.cityData.lat}, {this.state.cityData.lon}</h5>
         </Jumbotron> : ''}
