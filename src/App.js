@@ -31,11 +31,11 @@ class App extends React.Component {
         <h1>City Explorer</h1>
         <Form onSubmit={this.handleFormSubmit}>
           <Form.Group controlID="city">
-            <Form.Label>Enter city name</Form.Label>
+            <Form.Label>Explore a city:</Form.Label>
             <Form.Control value={this.state.city} onInput={event => this.setState({city: event.target.value})}></Form.Control>
           </Form.Group>
           <Button variant="primary" type="submit">
-            Explore!
+            Submit
           </Button>
         </Form>
         { this.state.cityData.lat !== undefined ? <Jumbotron>
