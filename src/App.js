@@ -13,10 +13,15 @@ class App extends React.Component {
       city: ''
     };
   }
-  handleFormSubmit = (event) => {
+  handleFormSubmit = async(event) => {
     event.preventDefault();
     console.log(this.state.city);
-    axios.get()
+    let cityData = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`);
+    console.log(cityData);
+    let cityICareAboutData = cityData.data[0];
+    this.setState({
+      cityData: cityICareAboutData
+    });
   }
   render() {
     return (
