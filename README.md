@@ -30,6 +30,6 @@ Estimate of time needed to complete: 2 nights
 
 Start time: 4/6/2021 9pm
 
-Finish time: TBD
+Finish time: 4/11/2021
 
-Actual time needed to complete: TBD
+Actual time needed to complete: 2-3 nights

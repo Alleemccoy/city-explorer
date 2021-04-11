@@ -15,15 +15,20 @@ class App extends React.Component {
       cityData: {}
     };
   }
-  handleFormSubmit = async(event) => {
+  handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(this.state.city);
-    let cityData = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`);
-    console.log(cityData);
-    let cityICareAboutData = cityData.data[0];
-    this.setState({
-      cityData: cityICareAboutData
-    });
+    try {
+      let cityData = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`);
+      console.log(cityData);
+      let cityICareAboutData = cityData.data[0];
+      this.setState({
+        cityData: cityICareAboutData
+      });
+    } catch (err) {
+      console.log(err);
+      this.setState({error: `${err.message}: ${err.response.data.error}`});
+    }
   }
   render() {
     return (
@@ -31,17 +36,18 @@ class App extends React.Component {
         <h1>City Explorer</h1>
         <Form onSubmit={this.handleFormSubmit}>
           <Form.Group controlID="city">
-            <Form.Label>Explore a city:</Form.Label>
-            <Form.Control value={this.state.city} onInput={event => this.setState({city: event.target.value})}></Form.Control>
+            <Form.Label>City name</Form.Label>
+            <Form.Control value={this.state.city} onInput={event => this.setState({ city: event.target.value })}></Form.Control>
           </Form.Group>
           <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
+        {this.state.error ? <h3>{this.state.error}</h3> : ''}
         { this.state.cityData.lat !== undefined ? <Jumbotron>
           <h3>{this.state.cityData.display_name}</h3>
           <h5>{this.state.cityData.lat}, {this.state.cityData.lon}</h5>
-          <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=13`} alt={`Map of ${this.state.cityData.display_name}`}/>
+          <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=13`} alt={`Map of ${this.state.cityData.display_name}`} />
         </Jumbotron> : ''}
       </>
     )
