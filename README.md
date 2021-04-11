@@ -19,6 +19,7 @@ This app uses REACT on the frontend, with Bootstrap for styling and Axios for AP
 
 ## Credit and Collaborations
 4/7/2021 Received help from instructor, Ryan Gallaway
+4/8/2021 Used Michelle's code build out to help complete lab 06
 
 Time Estimates
 For each of the lab features, make an estimate of the time it will take you to complete the feature, and record your start and finish times for that feature:
