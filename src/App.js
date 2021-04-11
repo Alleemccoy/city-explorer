@@ -3,6 +3,7 @@ import './App.css';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Jumbotron from 'react-bootstrap/Jumbotron';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -10,13 +11,19 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      city: ''
+      city: '',
+      cityData: {}
     };
   }
-  handleFormSubmit = (event) => {
+  handleFormSubmit = async(event) => {
     event.preventDefault();
     console.log(this.state.city);
-    axios.get()
+    let cityData = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`);
+    console.log(cityData);
+    let cityICareAboutData = cityData.data[0];
+    this.setState({
+      cityData: cityICareAboutData
+    });
   }
   render() {
     return (
@@ -24,13 +31,18 @@ class App extends React.Component {
         <h1>City Explorer</h1>
         <Form onSubmit={this.handleFormSubmit}>
           <Form.Group controlID="city">
-            <Form.Label>Enter city name</Form.Label>
+            <Form.Label>Explore a city:</Form.Label>
             <Form.Control value={this.state.city} onInput={event => this.setState({city: event.target.value})}></Form.Control>
           </Form.Group>
           <Button variant="primary" type="submit">
-            Explore!
+            Submit
           </Button>
         </Form>
+        { this.state.cityData.lat !== undefined ? <Jumbotron>
+          <h3>{this.state.cityData.display_name}</h3>
+          <h5>{this.state.cityData.lat}, {this.state.cityData.lon}</h5>
+          <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=13`} alt={`Map of ${this.state.cityData.display_name}`}/>
+        </Jumbotron> : ''}
       </>
     )
   }
