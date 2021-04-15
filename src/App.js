@@ -20,27 +20,27 @@ class App extends React.Component {
   handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(this.state.city);
-    try {
-      let cityData = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`);
-      console.log('cityData', cityData);
-      let cityICareAboutData = cityData.data[0];
-      this.setState({
-        cityData: cityICareAboutData
-      });
-
-    } catch (err) {
-      console.log(err);
-      this.setState({ error: `${err.message}: ${err.response.data.error}` });
-    }
-
+    let cityData = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`);
+    console.log('cityData', cityData);
+    let cityICareAboutData = cityData.data[0];
+    this.setState({
+      cityData: cityICareAboutData
+    });
+    
+    
     this.getWeatherData();
   }
-
+  
   getWeatherData = async () => {
-    const weatherData = await axios.get('http://localhost:3002/weather')
-    this.setState({
-      weatherData: weatherData.data
-    })
+    try {
+      const weatherData = await axios.get('http://localhost:3002/weather')
+      this.setState({
+        weatherData: weatherData.data
+      })
+    } catch (err) {
+      console.log(err);
+      this.setState({ 500: `${err.message}: ${err.response.data.error}` });
+    }
 
   }
   render() {
