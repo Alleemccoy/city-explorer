@@ -24,7 +24,7 @@ This app uses REACT on the frontend, with Bootstrap for styling and Axios for AP
 Time Estimates
 For each of the lab features, make an estimate of the time it will take you to complete the feature, and record your start and finish times for that feature:
 
-Name of feature: Asynchronous code, and APIs, Lab class06
+Name of feature: class06
 
 Estimate of time needed to complete: 2 nights
 
@@ -34,7 +34,9 @@ Finish time: 4/11/2021
 
 Actual time needed to complete: 2-3 nights
 
-Name of feature: Creating api / Lab07
+
+
+Name of feature: lab07
 
 Estimate of time needed to complete: 2 nights
 
@@ -43,3 +45,15 @@ Start time: 4/10/2021
 Finish time: 4/14/2021 10:45pm
 
 Actual time needed to complete: 4 nights
+
+
+
+Name of feature: lab08
+
+Estimate of time needed to complete: 2 days
+
+Start time: April 13 2021
+
+Finish time: TBD
+
+Actual time needed to complete: TBD
