@@ -18,19 +18,23 @@ class App extends React.Component {
     };
   }
   handleFormSubmit = async (event) => {
-    event.preventDefault();
-    console.log(this.state.city);
-    let cityData = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`);
-    console.log('cityData', cityData);
-    let cityICareAboutData = cityData.data[0];
-    this.setState({
-      cityData: cityICareAboutData
-    });
-    
-    
-    this.getWeatherData();
+    try {
+      event.preventDefault();
+      console.log(this.state.city);
+      let cityData = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`);
+      console.log('cityData', cityData);
+      let cityICareAboutData = cityData.data[0];
+      this.setState({
+        cityData: cityICareAboutData
+      });
+
+
+      this.getWeatherData();
+    } catch (err) {
+      console.log(err.message);
+    }
   }
-  
+
   getWeatherData = async () => {
     try {
       const weatherData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/weather`)
@@ -65,10 +69,10 @@ class App extends React.Component {
               <h5>{this.state.cityData.lat}, {this.state.cityData.lon}</h5>
               <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=13`} alt={`Map of ${this.state.cityData.display_name}`} />
             </Jumbotron>
-            <Weather weatherData={this.state.weatherData}/>
+            <Weather weatherData={this.state.weatherData} />
           </>
           : ''}
-     </>
+      </>
     )
   }
 }
