@@ -15,6 +15,7 @@ class App extends React.Component {
       city: '',
       cityData: {},
       weatherData: [],
+      error: '',
     };
   }
   handleFormSubmit = async (event) => {
@@ -25,6 +26,8 @@ class App extends React.Component {
       console.log('After Await');
       let cityICareAboutData = cityData.data[0];
       this.setState({
+        lat: cityData.data[0].lat,
+        lon: cityData.data[0].lon,
         cityData: cityICareAboutData
       });
 
@@ -37,13 +40,22 @@ class App extends React.Component {
 
   getWeatherData = async () => {
     try {
-      const weatherData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/weather`)
+      const weatherData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/weather`,
+      {
+        params:
+        {
+          lat: this.state.lat,
+          lon: this.state.lon
+        }
+      })
       this.setState({
         weatherData: weatherData.data
       })
     } catch (err) {
       console.log(err);
-      this.setState({ 500: `${err.message}: ${err.response.data.error}` });
+      this.setState({error: err.message});
+      // this.setState({error: ({ 500: `${err.message}` })});
+      // console.log(this.state.error);
     }
 
   }
