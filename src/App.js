@@ -4,9 +4,9 @@ import './App.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import Weather from './Weather.js';
+import Weather from './components/Weather.js';
 import axios from 'axios';
-import Movies from './Movies.js';
+import Movies from './components/Movies.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -71,30 +71,13 @@ class App extends React.Component {
           console.log(response.data)
           this.setState({ movie: response.data })
         })
-        .catch(err => {console.error(err)})
-      
+        .catch(err => { console.error(err) })
+
     } catch (error) {
       console.error(error);
     }
-    
+
   }
-
-  // try {
-  //   const movieInfo = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/movies`,
-  //     {
-  //       params:
-  //       {
-  //         city: 'Seattle'
-  //       }
-  //     })
-  //   this.setState({
-  //     movie: movieInfo.data
-  //   })
-  //   console.log(movieInfo.data, 'We Herrrr');
-  // } catch (err) {
-  //   console.log(err);
-  //   this.setState({ error: err.message });
-
 
   render() {
     return (
@@ -127,4 +110,4 @@ class App extends React.Component {
   }
 }
 
-  export default App;
+export default App;
