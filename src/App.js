@@ -68,7 +68,7 @@ class App extends React.Component {
           },
         })
         .then(response => {
-          console.log(response.data)
+          console.log('MOVIE DATA', response.data)
           this.setState({ movie: response.data })
         })
         .catch(err => { console.error(err) })
